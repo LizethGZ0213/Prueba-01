@@ -1,4 +1,4 @@
-name: Crear Issue en Jira
+name: Crear Issue en Jira NUEVO
 
 on:
   issues:
