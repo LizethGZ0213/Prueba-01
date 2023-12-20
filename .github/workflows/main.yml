@@ -1,0 +1,30 @@
+on:
+  push
+
+name: Test Transition Issue
+
+jobs:
+  test-transition-issue:
+    name: Transition Issue
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: https://gonzarliz2504.atlassian.net/jira/your-work
+        JIRA_USER_EMAIL: gonzarliz2504@gmail.com
+        JIRA_API_TOKEN: ATATT3xFfGF0KUAfkG8WKv_Ap4cssYQY7wSSRp1bYbh2QcxR4cyjszQUNW3NhLcXnI1pNO0dhvw7n-gC0VIEPFU-DOb4vzoj73k06UFJGYWh6s-wy4pbDaamGXMQkjX7lDT16YSPXn2jVwMVwpKu5L2HC7yqPr1Wg7fnC_DKwwuXyYImnPtCd0o=FA016CEB
+
+    - name: Find Issue Key
+      uses: ./
+      with:
+        from: commits
+
+    - name: Transition issue
+      uses: atlassian/gajira-transition@master
+      with:
+        issue: ${{ steps.create.outputs.issue }}
+        transition: "In Progress"
